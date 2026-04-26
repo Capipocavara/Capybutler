@@ -15,8 +15,7 @@ namespace Capybutler.Editor.Build.VdfTemplates
 
         protected override string TransformText()
         {
-            var buildDescription = BuildType switch
-            {
+            var buildDescription = BuildType switch {
                 BuildButler.BuildType.Development => "[Development]",
                 BuildButler.BuildType.Beta => "[Beta]",
                 BuildButler.BuildType.ReleaseCandidate => "[Release Candidate]",

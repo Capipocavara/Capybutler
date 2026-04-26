@@ -144,8 +144,7 @@ namespace Capybutler.Editor
 
         private static bool ButtonHelper(Rect position, string msgShort, string msgLong, GUIStyle style, string tooltip = null)
         {
-            var content = new GUIContent(msgLong)
-            {
+            var content = new GUIContent(msgLong) {
                 tooltip = tooltip
             };
 
@@ -191,8 +190,7 @@ namespace Capybutler.Editor
 
             public static BuildScene GetBuildScene(Object sceneObject)
             {
-                var entry = new BuildScene
-                {
+                var entry = new BuildScene {
                     BuildIndex = -1,
                     AssetGuid = new GUID(string.Empty)
                 };

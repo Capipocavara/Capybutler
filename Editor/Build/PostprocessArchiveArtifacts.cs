@@ -7,8 +7,7 @@ namespace Capybutler.Editor.Build
 {
     public class PostprocessArchiveArtifacts : IPostprocessBuildWithReport
     {
-        private static readonly string[] ArchiveButDoNotShipPathSuffixes =
-        {
+        private static readonly string[] ArchiveButDoNotShipPathSuffixes = {
             "BackUpThisFolder_ButDontShipItWithYourGame",
             "BurstDebugInformation_DoNotShip"
         };

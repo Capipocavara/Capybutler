@@ -12,8 +12,7 @@ namespace Capybutler.Editor
 
         private static bool enterPlayModeOverride;
 
-        public static bool DefaultPlayModeOverrideEnabled
-        {
+        public static bool DefaultPlayModeOverrideEnabled {
             get => EditorPrefs.GetBool(PathUtils.GetEditorKey(nameof(DefaultPlayModeOverrideEnabled)), false);
             private set => EditorPrefs.SetBool(PathUtils.GetEditorKey(nameof(DefaultPlayModeOverrideEnabled)), value);
         }

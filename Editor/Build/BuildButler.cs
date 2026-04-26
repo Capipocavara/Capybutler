@@ -72,13 +72,14 @@ namespace Capybutler.Editor.Build
             uploadToggle = root.Q<Toggle>("buildUpload");
             uploadToggle.RegisterValueChangedCallback(changeEvent => EditorPrefs.SetBool(PathUtils.GetEditorKey("upload"), changeEvent.newValue));
 
-            if (Enum.TryParse<BuildType>(EditorPrefs.GetString(PathUtils.GetEditorKey("branch"), BuildType.Development.ToString()), out var parsedValue))
+            if (Enum.TryParse<BuildType>(EditorPrefs.GetString(PathUtils.GetEditorKey("branch"), nameof(BuildType.Development)), out var parsedValue))
                 branchField.SetValueWithoutNotify(parsedValue);
 
             descriptionField.SetValueWithoutNotify(EditorPrefs.GetString(PathUtils.GetEditorKey(descriptionField.name), ""));
             appIdField.SetValueWithoutNotify(EditorPrefs.GetString(PathUtils.GetEditorKey(appIdField.name), ""));
             depotIdField.SetValueWithoutNotify(EditorPrefs.GetString(PathUtils.GetEditorKey(depotIdField.name), ""));
             uploadToggle.SetValueWithoutNotify(EditorPrefs.GetBool(PathUtils.GetEditorKey("upload"), false));
+
 
             // Scripting Defines
             scriptingDefines = LoadDefineSymbols();
@@ -87,8 +88,8 @@ namespace Capybutler.Editor.Build
             scriptingDefinesListView.itemsAdded += _ => SaveDefineSymbols();
             scriptingDefinesListView.itemsRemoved += _ => SaveDefineSymbols();
             scriptingDefinesListView.itemIndexChanged += (_, _) => SaveDefineSymbols();
-            scriptingDefinesListView.RegisterCallback<ChangeEvent<string>>(_ => SaveDefineSymbols());
-            scriptingDefinesListView.RegisterCallback<ChangeEvent<bool>>(_ => SaveDefineSymbols());
+            scriptingDefinesListView.RegisterCallback<ChangeEvent<string>>(ScriptingDefinesStringCallback);
+            scriptingDefinesListView.RegisterCallback<ChangeEvent<bool>>(ScriptingDefinesBoolCallback);
             scriptingDefinesListView.RefreshItems();
 
             // Steam Configuration
@@ -104,6 +105,10 @@ namespace Capybutler.Editor.Build
             steamPasswordField.SetValueWithoutNotify(EditorPrefs.GetString(PathUtils.GetEditorKey(steamPasswordField.name), ""));
             steamCmdPathField.SetValueWithoutNotify(EditorPrefs.GetString(PathUtils.GetEditorKey(steamCmdPathField.name), ""));
             root.Q<Button>("startBuild").clicked += OnStartBuildClicked;
+            return;
+
+            void ScriptingDefinesStringCallback(ChangeEvent<string> _) => SaveDefineSymbols();
+            void ScriptingDefinesBoolCallback(ChangeEvent<bool> _) => SaveDefineSymbols();
         }
 
         private async void SaveDefineSymbols()
@@ -120,8 +125,7 @@ namespace Capybutler.Editor.Build
 
                 EditorPrefs.SetString(PathUtils.GetEditorKey($"{nameof(scriptingDefines)}__symbols"), names);
                 EditorPrefs.SetString(PathUtils.GetEditorKey($"{nameof(scriptingDefines)}__debug"), debugs);
-            }
-            catch (Exception) {
+            } catch (Exception) {
                 LogButler.Warning("Saving define symbols failed");
             }
         }
@@ -139,8 +143,7 @@ namespace Capybutler.Editor.Build
             var length = Math.Min(defineName.Length, defineDebug.Length);
 
             for (var index = 0; index < length; index++)
-                result.Add(new ScriptingDefineSymbol
-                {
+                result.Add(new ScriptingDefineSymbol {
                     Define = defineName[index],
                     Debug = defineDebug[index] == "True"
                 });
@@ -179,16 +182,14 @@ namespace Capybutler.Editor.Build
         private void CompileSteamDeploymentScriptsForBranch(BuildType buildType)
         {
             var outputPath = PathUtils.ProjectPathToFullPath("Build/Scripts");
-            var app = new AppbuildTemplate(outputPath)
-            {
+            var app = new AppbuildTemplate(outputPath) {
                 AppId = int.TryParse(appIdField.value, out var appIdValue) ? appIdValue : 0,
                 DepotId = int.TryParse(depotIdField.value, out var depotIdValue) ? depotIdValue : 0,
                 BuildType = buildType,
                 Description = descriptionField.value
             };
 
-            var depot = new DepotbuildTemplate(outputPath)
-            {
+            var depot = new DepotbuildTemplate(outputPath) {
                 DepotId = app.DepotId,
             };
 
@@ -238,13 +239,11 @@ namespace Capybutler.Editor.Build
             var namedBuildTarget = NamedBuildTarget.FromBuildTargetGroup(targetGroup);
             PlayerSettings.SetArchitecture(namedBuildTarget, 1);
             PlayerSettings.SetScriptingDefineSymbols(namedBuildTarget, GetScriptingDefineSymbolsForBranch(buildType));
-            PlayerSettings.SetIl2CppStacktraceInformation(namedBuildTarget, buildType switch
-            {
+            PlayerSettings.SetIl2CppStacktraceInformation(namedBuildTarget, buildType switch {
                 BuildType.Development => Il2CppStacktraceInformation.MethodFileLineNumber,
                 _ => Il2CppStacktraceInformation.MethodOnly
             });
-            PlayerSettings.SetIl2CppCompilerConfiguration(namedBuildTarget, buildType switch
-            {
+            PlayerSettings.SetIl2CppCompilerConfiguration(namedBuildTarget, buildType switch {
                 BuildType.Development => Il2CppCompilerConfiguration.Debug,
                 BuildType.Beta => Il2CppCompilerConfiguration.Release,
                 BuildType.ReleaseCandidate => Il2CppCompilerConfiguration.Master,
@@ -264,8 +263,7 @@ namespace Capybutler.Editor.Build
                     BuildOptions.ConnectWithProfiler |
                     BuildOptions.EnableDeepProfilingSupport;
 
-            var buildPlayerOptions = new BuildPlayerOptions
-            {
+            var buildPlayerOptions = new BuildPlayerOptions {
                 locationPathName = PathUtils.ProjectPathToFullPath($"Build/{Application.productName}/{Application.productName}.x86_64"),
                 options = buildOptions,
                 target = BuildTarget.StandaloneLinux64,

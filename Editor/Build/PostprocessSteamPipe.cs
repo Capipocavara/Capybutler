@@ -40,10 +40,8 @@ namespace Capybutler.Editor.Build
 
             var arguments = $"+login {steamLogin} \"{steamPassword}\" +run_app_build \"{buildScriptName}\" +quit";
 
-            var steamPipe = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
+            var steamPipe = new Process {
+                StartInfo = new ProcessStartInfo {
                     FileName = EditorPrefs.GetString(PathUtils.GetEditorKey("steamCmdPath"), ""),
                     Arguments = arguments,
                     WorkingDirectory = Path.GetDirectoryName(processName) ?? "",

@@ -116,7 +116,6 @@ namespace Capybutler
             ? new Color(PlayerPrefs.GetFloat($"{key}__r"), PlayerPrefs.GetFloat($"{key}__g"), PlayerPrefs.GetFloat($"{key}__b"), PlayerPrefs.GetFloat($"{key}__a"))
             : defaultValue;
 
-        [UsedImplicitly]
-        public static Color GetColor(string key) => GetColor(key, Color.black);
+        [UsedImplicitly] public static Color GetColor(string key) => GetColor(key, Color.black);
     }
 }

@@ -10,21 +10,17 @@ namespace Capybutler
     [Serializable]
     public class SceneReference : ISerializationCallbackReceiver
     {
-        [SerializeField]
-        private string scenePath = string.Empty;
+        [SerializeField] private string scenePath = string.Empty;
 
-        public string ScenePath
-        {
-            get
-            {
+        public string ScenePath {
+            get {
 #if UNITY_EDITOR
                 return SceneAssetPath;
 #else
                 return scenePath;
 #endif
             }
-            set
-            {
+            set {
                 scenePath = value;
 #if UNITY_EDITOR
                 sceneAsset = SceneAssetAtPath;
@@ -71,8 +67,7 @@ namespace Capybutler
                 EditorSceneManager.MarkAllScenesDirty();
         }
 
-        [SerializeField]
-        private SceneAsset sceneAsset;
+        [SerializeField] private SceneAsset sceneAsset;
 
         private string SceneAssetPath => sceneAsset == null ? string.Empty : AssetDatabase.GetAssetPath(sceneAsset);
         private SceneAsset SceneAssetAtPath => string.IsNullOrEmpty(scenePath) ? null : AssetDatabase.LoadAssetAtPath<SceneAsset>(scenePath);

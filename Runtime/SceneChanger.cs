@@ -8,11 +8,8 @@ namespace Capybutler
     {
         public SceneReference nextScene;
 
-        [Tooltip("Loading progress from 0 to 100")]
-        public UnityEvent<int> progress;
-
-        [Header("Settings")]
-        public bool loadAdditive;
+        [Tooltip("Loading progress from 0 to 100")] public UnityEvent<int> progress;
+        [Header("Settings")] public bool loadAdditive;
 
         public bool activateImmediately = true;
 

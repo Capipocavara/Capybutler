@@ -1,7 +1,7 @@
 {
   "name": "de.capipocavara.capybutler",
   "displayName": "Capybutler",
-  "description": "Steam build automation, extension methods, scene management helpers, logging",
+  "description": "Steam build tool, extensionmethods, scene management and other helpers for Unity",
   "version": "0.4.0",
   "unity": "6000.4",
   "author": {

@@ -1,15 +1,15 @@
 {
-  "name": "de.capipocavara.capybutler",
-  "displayName": "Capybutler",
-  "description": "Steam build tool, extensionmethods, scene management and other helpers for Unity",
-  "version": "0.4.0",
+  "name": "de.capipocavara.capibutler",
+  "displayName": "Capibutler",
+  "description": "Steam build tool, extensionmethods, scene management, scriptable object events & values, and common helpers for Unity",
+  "version": "0.4.2",
   "unity": "6000.4",
   "author": {
     "name": "Capipocavara"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Capipocavara/Capybutler.git"
+    "url": "git@github.com:Capipocavara/Capibutler.git"
   },
   "dependencies": {
     "com.unity.addressables": "2.9.1"

@@ -1,8 +1,8 @@
-# Capybutler
+# Capibutler
 
 ### Description
 
-Steam build tool, extensionmethods, scene management and other helpers for Unity
+Steam build tool, extensionmethods, scene management, scriptable object events & values, and common helpers for Unity
 
 ### Installation
 
@@ -12,6 +12,6 @@ Open Unity and navigate to:
 
 Enter into URL field:
 
-	https://github.com/Capipocavara/Capybutler.git
+	https://github.com/Capipocavara/Capibutler.git
 
 Supported versions: 6000.4+ (Universal Renderpipeline)

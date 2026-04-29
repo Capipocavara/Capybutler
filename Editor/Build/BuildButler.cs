@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Capybutler.Editor.Build.VdfTemplates;
+using Capibutler.Editor.Build.VdfTemplates;
+using Capibutler.Editor.Utils;
+using Capibutler.Utils;
 using UnityEditor;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.Build;
@@ -11,7 +13,7 @@ using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Capybutler.Editor.Build
+namespace Capibutler.Editor.Build
 {
     public class BuildButler : EditorWindow
     {
@@ -45,10 +47,10 @@ namespace Capybutler.Editor.Build
         private List<ScriptingDefineSymbol> scriptingDefines;
         private ListView scriptingDefinesListView;
 
-        [MenuItem("Capybutler/Build Butler", false, priority = 50)]
+        [MenuItem("Capipocavara/Build Capibutler", false, priority = 50)]
         private static void ShowWindow()
         {
-            var window = GetWindow<BuildButler>(false, "Build Butler");
+            var window = GetWindow<BuildButler>(false, "Build Capibutler");
             window.minSize = new Vector2(520f, 400f);
             window.maxSize = new Vector2(700f, 610f);
             window.Show();
@@ -57,8 +59,8 @@ namespace Capybutler.Editor.Build
         public void CreateGUI()
         {
             var root = rootVisualElement;
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(PathUtils.PackagePath("de.capipocavara.capybutler", "Editor/Build/BuildButler.uss")));
-            root.Add(AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(PathUtils.PackagePath("de.capipocavara.capybutler", "Editor/Build/BuildButler.uxml")).Instantiate());
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(PathUtils.PackagePath("de.capipocavara.capibutler", "Editor/Build/BuildButler.uss")));
+            root.Add(AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(PathUtils.PackagePath("de.capipocavara.capibutler", "Editor/Build/BuildButler.uxml")).Instantiate());
 
             // Build Configuration
             branchField = root.Q<EnumField>("buildBranch");

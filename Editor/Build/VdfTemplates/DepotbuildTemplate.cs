@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Capibutler.Editor.Utils;
+using UnityEngine;
 
-namespace Capybutler.Editor.Build.VdfTemplates
+namespace Capibutler.Editor.Build.VdfTemplates
 {
     public sealed class DepotbuildTemplate : FileGenerator
     {

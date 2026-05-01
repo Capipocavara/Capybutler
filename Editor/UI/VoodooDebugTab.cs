@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Capibutler.Editor.Utils;
+using Capibutler.Utils;
 using UnityEditor;
 using UnityEngine.UIElements;
 
@@ -32,8 +34,8 @@ namespace Capibutler.Editor.UI
             listFilterType = rootVisualElement.parent.Q<EnumField>("filterType");
             listFilterType.RegisterValueChangedCallback(_ => OnFilterChanged());
 
-            var lastFilter = EditorPrefs.GetString(Voodoo.GetDebuggerFilterKey, "");
-            var lastFilterType = Enum.TryParse(EditorPrefs.GetString(Voodoo.GetDebuggerFilterTypeKey, "Everything"), out FilterType filterValue)
+            var lastFilter = SettingsUtils.GetString("lastListFilter");
+            var lastFilterType = Enum.TryParse(SettingsUtils.GetString("lastFilterType", "Everything"), out FilterType filterValue)
                 ? filterValue
                 : FilterType.Everything;
 
@@ -63,7 +65,7 @@ namespace Capibutler.Editor.UI
         private void OnFilterChanged()
         {
             FilteredVoodooElements.Clear();
-            FilteredVoodooElements.AddRange(listFilter.value.IsNullOrWhitespace()
+            FilteredVoodooElements.AddRange(listFilter.value.IsNullOrWhiteSpace()
                 ? VoodooElements
                 : VoodooElements.Where(item => FilterCheck(item, listFilter.value, (FilterType)listFilterType.value)));
 
@@ -72,8 +74,8 @@ namespace Capibutler.Editor.UI
             var saveFilter = listFilter.value;
             var saveFilterType = (FilterType)listFilterType.value;
 
-            EditorPrefs.SetString(Voodoo.GetDebuggerFilterKey, saveFilter);
-            EditorPrefs.SetString(Voodoo.GetDebuggerFilterTypeKey, saveFilterType.ToString());
+            SettingsUtils.SetString("lastListFilter", saveFilter);
+            SettingsUtils.SetString("lastFilterType", saveFilterType.ToString());
 
             OnElementsChanged();
         }

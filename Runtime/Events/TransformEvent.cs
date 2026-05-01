@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Capibutler.Events
 {
-    [CreateAssetMenu(fileName = "TransformEvent", menuName = "Voodoo/Events/TransformEvent")]
+    [CreateAssetMenu(fileName = "TransformEvent", menuName = "Capipocavara/Events/TransformEvent")]
     public class TransformEvent : GenericEvent<Transform> { }
 
     [Serializable]

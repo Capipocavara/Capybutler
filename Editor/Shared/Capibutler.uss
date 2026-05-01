@@ -102,3 +102,15 @@ Toggle {
 .halfWidth {
     width: 49%;
 }
+
+.unity-collection-view {
+}
+
+.unity-list-view {
+}
+
+.unity-list-view--with-header {
+}
+
+.unity-list-view--with-footer {
+}

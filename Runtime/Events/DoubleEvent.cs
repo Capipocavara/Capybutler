@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Capibutler.Events
 {
-    [CreateAssetMenu(fileName = "DoubleEvent", menuName = "Voodoo/Events/DoubleEvent")]
+    [CreateAssetMenu(fileName = "DoubleEvent", menuName = "Capipocavara/Events/DoubleEvent")]
     public class DoubleEvent : GenericEvent<double> { }
 
     [Serializable]

@@ -11,9 +11,6 @@ namespace Capibutler.Editor.Utils
     {
         private const string EditorKeyPrefix = "Capibutler";
 
-        private const string DebuggerFilter = "LastDebuggerFilter";
-        private const string DebuggerFilterType = "LastDebuggerFilterType";
-
         private static string SettingsKey(string name) => $"{EditorKeyPrefix}.{Application.productName}.{name}";
 
         public static bool GetBool(string key, bool defaultValue = false) => EditorPrefs.GetBool(SettingsKey(key), defaultValue);

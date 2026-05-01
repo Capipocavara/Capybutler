@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace Capibutler.Values
 {
-    [CreateAssetMenu(fileName = "QuaternionValue", menuName = "Voodoo/Values/QuaternionValue")]
+    [CreateAssetMenu(fileName = "QuaternionValue", menuName = "Capipocavara/Values/QuaternionValue")]
     public class QuaternionValue : GenericValue<Quaternion> { }
 }

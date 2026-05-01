@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace Capibutler.Values
 {
-    [CreateAssetMenu(fileName = "UlongValue", menuName = "Voodoo/Values/UlongValue")]
+    [CreateAssetMenu(fileName = "UlongValue", menuName = "Capipocavara/Values/UlongValue")]
     public class UlongValue : GenericValue<ulong> { }
 }

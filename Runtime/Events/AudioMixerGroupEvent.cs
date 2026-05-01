@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 namespace Capibutler.Events
 {
-    [CreateAssetMenu(fileName = "AudioMixerGroupEvent", menuName = "Voodoo/Events/AudioMixerGroupEvent")]
+    [CreateAssetMenu(fileName = "AudioMixerGroupEvent", menuName = "Capipocavara/Events/AudioMixerGroupEvent")]
     public class AudioMixerGroupEvent : GenericEvent<AudioMixerGroup> { }
 
     [Serializable]

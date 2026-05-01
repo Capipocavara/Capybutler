@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace Capibutler.Values
 {
-    [CreateAssetMenu(fileName = "FloatValue", menuName = "Voodoo/Values/FloatValue")]
+    [CreateAssetMenu(fileName = "FloatValue", menuName = "Capipocavara/Values/FloatValue")]
     public class FloatValue : GenericValue<float> { }
 }

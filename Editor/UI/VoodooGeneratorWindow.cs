@@ -35,8 +35,8 @@ namespace Capibutler.Editor.UI
         private void CreateGUI()
         {
             var root = rootVisualElement;
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(Voodoo.VoodooPackagePath("de.capipocavara.voodoovara", "Editor/UI/Voodoo.uss")));
-            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(Voodoo.VoodooPackagePath("de.capipocavara.voodoovara", "Editor/UI/VoodooGenerator.uxml"));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(PathUtils.PackagePath("Editor/Shared/Capibutler.uss")));
+            var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(PathUtils.PackagePath("Editor/UI/VoodooGenerator.uxml"));
             root.Add(visualTree.Instantiate());
 
             eventTab.CreateGUI(root.Q<VisualElement>("eventTypeContent"));

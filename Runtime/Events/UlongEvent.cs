@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Capibutler.Events
 {
-    [CreateAssetMenu(fileName = "UlongEvent", menuName = "Voodoo/Events/UlongEvent")]
+    [CreateAssetMenu(fileName = "UlongEvent", menuName = "Capipocavara/Events/UlongEvent")]
     public class UlongEvent : GenericEvent<ulong> { }
 
     [Serializable]

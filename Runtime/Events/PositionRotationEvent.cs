@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Capibutler.Events
 {
-    [CreateAssetMenu(fileName = "PositionRotationEvent", menuName = "Voodoo/Events/PositionRotationEvent")]
+    [CreateAssetMenu(fileName = "PositionRotationEvent", menuName = "Capipocavara/Events/PositionRotationEvent")]
     public class PositionRotationEvent : GenericEvent<Vector3, Quaternion> { }
 
     [Serializable]

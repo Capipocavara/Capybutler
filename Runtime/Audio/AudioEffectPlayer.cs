@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -10,53 +9,37 @@ namespace Capibutler.Audio
     {
         public enum SpatialType
         {
-            [InspectorName("2D")]
-            TwoD,
-
-            [InspectorName("3D")]
-            ThreeD
+            TwoD = 0,
+            ThreeD = 1
         }
-        
+
         private const byte AudioSourcePoolSize = 30;
-        
         private static Queue<AudioSource> audioSources;
-#if UNITY_EDITOR
-        private static AudioSource previewSource;
-#endif
 
         public AudioMixerGroup audioGroup;
         public AudioResource effect;
-        
-        [Header("Settings")]
-        [EnumButtons]
+
         public SpatialType spatialType = SpatialType.ThreeD;
         public AudioRolloffMode rolloffMode = AudioRolloffMode.Logarithmic;
-        
-
-        [Range(1f, 500f)]
-        public float minDistance = 1f;
-        
-        [Range(1f, 500f)]
-        public float maxDistance = 500f;
-        
+        public Vector2 distance = new(10f, 100f);
         public bool loop;
 
         private AudioSource playingSource;
 
-        [SerializeField]
-        [HideInInspector]
-        private bool looping;
-        
+        [SerializeField] private bool looping;
+
         private void OnValidate()
         {
-            looping = loop && EffectIsAudioClip;
+            looping = loop && effect is AudioClip;
+            distance.y = Mathf.Max(distance.x, distance.y);
         }
 
         private void LateUpdate()
         {
             // clean up non looping not playing sources, looping sources must explicitly be set to !enabled to allow recovery of paused looping sources on focus loss  
-            if (!playingSource || playingSource.isPlaying || (playingSource.loop && playingSource.enabled))
+            if (!playingSource || playingSource.isPlaying || (playingSource.loop && playingSource.enabled)) {
                 return;
+            }
 
             ReturnToAudioSourcePool(playingSource);
             playingSource = null;
@@ -64,8 +47,9 @@ namespace Capibutler.Audio
 
         private void OnDestroy()
         {
-            if (!playingSource)
+            if (!playingSource) {
                 return;
+            }
 
             ReturnToAudioSourcePool(playingSource);
             playingSource = null;
@@ -73,22 +57,52 @@ namespace Capibutler.Audio
 
         private void OnApplicationFocus(bool hasFocus)
         {
-            if (!hasFocus || !playingSource || !playingSource.enabled || !playingSource.loop || playingSource.isPlaying)
+            if (!hasFocus || !playingSource || !playingSource.enabled || !playingSource.loop || playingSource.isPlaying) {
                 return;
+            }
 
             // unpause potentially paused looping sources
             playingSource.UnPause();
         }
 
+        public void Play()
+        {
+            if (!effect) {
+                return;
+            }
+
+            if (playingSource) {
+                ReturnToAudioSourcePool(playingSource);
+                playingSource = null;
+            }
+
+            if (!GrabFromAudioSourcePool(out var source)) {
+                return;
+            }
+
+            playingSource = source;
+            source.Play();
+        }
+
+        public void Stop()
+        {
+            if (!playingSource) {
+                return;
+            }
+
+            ReturnToAudioSourcePool(playingSource);
+            playingSource = null;
+        }
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void CreateAudioSourcePool()
         {
-            if (!Application.isPlaying)
+            if (!Application.isPlaying) {
                 return;
+            }
 
             audioSources = new Queue<AudioSource>(AudioSourcePoolSize);
-            for (var i = 0; i < AudioSourcePoolSize; ++i)
-            {
+            for (var i = 0; i < AudioSourcePoolSize; ++i) {
                 var go = new GameObject("AudioSource") { hideFlags = HideFlags.HideAndDontSave };
                 DontDestroyOnLoad(go);
 
@@ -102,18 +116,18 @@ namespace Capibutler.Audio
 
         private bool GrabFromAudioSourcePool(out AudioSource source)
         {
-            if (!audioSources.TryDequeue(out source))
+            if (!audioSources.TryDequeue(out source)) {
                 return false;
+            }
 
             source.enabled = true;
             source.resource = effect;
             source.outputAudioMixerGroup = audioGroup;
             source.rolloffMode = rolloffMode;
-            source.minDistance = minDistance;
-            source.maxDistance = maxDistance;
+            source.minDistance = distance.x;
+            source.maxDistance = distance.y;
             source.loop = looping;
-            source.spatialBlend = spatialType switch
-            {
+            source.spatialBlend = spatialType switch {
                 SpatialType.TwoD => 0f,
                 SpatialType.ThreeD => 1f,
                 _ => throw new ArgumentOutOfRangeException()
@@ -154,82 +168,5 @@ namespace Capibutler.Audio
 
             audioSources.Enqueue(source);
         }
-
-        public void Play()
-        {
-            if (!effect)
-                return;
-
-            if (playingSource)
-            {
-                ReturnToAudioSourcePool(playingSource);
-                playingSource = null;
-            }
-
-            if (!GrabFromAudioSourcePool(out var source))
-                return;
-
-            playingSource = source;
-            source.Play();
-        }
-
-        public void Stop()
-        {
-            if (!playingSource)
-                return;
-
-            ReturnToAudioSourcePool(playingSource);
-            playingSource = null;
-        }
-
-
-#if UNITY_EDITOR
-        // [ButtonGroup()]
-        // [Button(SdfIconType.PlayFill, "")]
-        // [HideInPlayMode]
-        public void Preview()
-        {
-            if (previewSource == null)
-            {
-                previewSource = EditorUtility.CreateGameObjectWithHideFlags("AudioEffectPreview", HideFlags.HideAndDontSave, typeof(AudioSource)).GetComponent<AudioSource>();
-                previewSource.enabled = true;
-                previewSource.loop = false;
-            }
-
-            if (previewSource.isPlaying)
-                previewSource.Stop();
-
-            previewSource.resource = effect;
-            previewSource.outputAudioMixerGroup = audioGroup;
-            previewSource.rolloffMode = rolloffMode;
-            previewSource.minDistance = minDistance;
-            previewSource.maxDistance = maxDistance;
-            previewSource.spatialBlend = spatialType switch
-            {
-                SpatialType.TwoD => 0f,
-                SpatialType.ThreeD => 1f,
-                _ => throw new ArgumentOutOfRangeException()
-            };
-
-            var tf = previewSource.transform;
-            tf.parent = transform;
-            tf.localPosition = Vector3.zero;
-
-            previewSource.Play();
-        }
-
-        // [ButtonGroup()]
-        // [Button(SdfIconType.StopFill, "")]
-        // [EnableIf(nameof(PreviewIsPlaying))]
-        // [HideInPlayMode]
-        public void StopPreview()
-        {
-            if (PreviewIsPlaying)
-                previewSource.Stop();
-        }
-
-        private static bool PreviewIsPlaying => previewSource != null && previewSource.isPlaying;
-        private bool EffectIsAudioClip => effect is AudioClip;
-#endif
     }
 }

@@ -36,7 +36,7 @@ namespace Capibutler.Editor.CodeGenerator
                 PushIndent();
             }
 
-            WriteLine($"[CreateAssetMenu(fileName = \"{EventName}\", menuName = \"Voodoo/Events/{EventName}\")]");
+            WriteLine($"[CreateAssetMenu(fileName = \"{EventName}\", menuName = \"Capipocavara/Events/{EventName}\")]");
             if (string.IsNullOrEmpty(payloads)) {
                 WriteLine($"public class {EventName} : GenericEvent {{ }}");
             } else {

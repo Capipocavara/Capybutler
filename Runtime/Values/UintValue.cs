@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Capibutler.Values
 {
-    [CreateAssetMenu(fileName = "UintValue", menuName = "Voodoo/Values/UintValue")]
+    [CreateAssetMenu(fileName = "UintValue", menuName = "Capipocavara/Values/UintValue")]
     public class UintValue : GenericValue<uint> { }
 
     public class MyCustom : List<Dictionary<float, int>> { }

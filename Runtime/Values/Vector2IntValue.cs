@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace Capibutler.Values
 {
-    [CreateAssetMenu(fileName = "Vector2IntValue", menuName = "Voodoo/Values/Vector2IntValue")]
+    [CreateAssetMenu(fileName = "Vector2IntValue", menuName = "Capipocavara/Values/Vector2IntValue")]
     public class Vector2IntValue : GenericValue<Vector2Int> { }
 }

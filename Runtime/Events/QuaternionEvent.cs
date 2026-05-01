@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Capibutler.Events
 {
-    [CreateAssetMenu(fileName = "QuaternionEvent", menuName = "Voodoo/Events/QuaternionEvent")]
+    [CreateAssetMenu(fileName = "QuaternionEvent", menuName = "Capipocavara/Events/QuaternionEvent")]
     public class QuaternionEvent : GenericEvent<Quaternion> { }
 
     [Serializable]

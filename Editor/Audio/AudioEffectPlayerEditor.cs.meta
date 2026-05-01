@@ -1,3 +1,12 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 061d8a1259fa487eba11f7f8564dc50a
-timeCreated: 1670039948
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - audioEffectPlayerUxml: {fileID: 9197481963319205126, guid: 5af7c667d43b00546868ee41f6a30ac9, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

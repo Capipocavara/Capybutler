@@ -47,7 +47,7 @@ namespace Capibutler.Editor.Build
         private List<ScriptingDefineSymbol> scriptingDefines;
         private ListView scriptingDefinesListView;
 
-        [MenuItem("Capipocavara/CapiBuild butler", false, priority = 50)]
+        [MenuItem("Capipocavara/Capibuild Butler", false, priority = 50)]
         private static void ShowWindow()
         {
             var window = GetWindow<CapiBuildButler>(false, "CapiBuild Butler");
@@ -59,7 +59,7 @@ namespace Capibutler.Editor.Build
         public void CreateGUI()
         {
             var root = rootVisualElement;
-            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(PathUtils.PackagePath("Editor/Build/Capibutler.uss")));
+            root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>(PathUtils.PackagePath("Editor/Shared/Capibutler.uss")));
             root.Add(AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(PathUtils.PackagePath("Editor/Build/CapiBuildButler.uxml")).Instantiate());
 
             // Build Configuration

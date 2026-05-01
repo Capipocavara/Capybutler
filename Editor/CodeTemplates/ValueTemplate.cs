@@ -32,7 +32,7 @@ namespace Capibutler.Editor.CodeGenerator
                 PushIndent();
             }
 
-            WriteLine($"[CreateAssetMenu(fileName = \"{ValueName}\", menuName = \"Voodoo/Values/{ValueName}\")]");
+            WriteLine($"[CreateAssetMenu(fileName = \"{ValueName}\", menuName = \"Capipocavara/Values/{ValueName}\")]");
             WriteLine($"public class {ValueName} : GenericValue<{ValueType}> {{ }}");
             if (!string.IsNullOrEmpty(Namespace)) {
                 PopIndent();

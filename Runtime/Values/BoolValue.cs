@@ -3,6 +3,6 @@ using UnityEngine;
 
 namespace Capibutler.Values
 {
-    [CreateAssetMenu(fileName = "BoolValue", menuName = "Voodoo/Values/BoolValue")]
+    [CreateAssetMenu(fileName = "BoolValue", menuName = "Capipocavara/Values/BoolValue")]
     public class BoolValue : GenericValue<bool> { }
 }

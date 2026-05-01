@@ -1,0 +1,21 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <uie:ObjectField label="Audio Group" binding-path="audioGroup" type="UnityEngine.Audio.AudioMixerGroup, UnityEngine.AudioModule" name="AudioGroup"/>
+    <uie:ObjectField label="Effect" binding-path="effect" type="UnityEngine.Audio.AudioResource, UnityEngine.AudioModule" name="Effect"/>
+    <ui:Label text="Settings" name="SettingsHeader" style="-unity-font-style: bold; margin-top: 10px; margin-bottom: 5px; margin-left: 3px; font-size: 13px;"/>
+    <ui:Label text="Distance" name="DistanceLabel" style="margin-left: 3px;"/>
+    <ui:MinMaxSlider label="" value="10,100" low-limit="1" high-limit="500" binding-path="distance" name="MinMaxDistance"/>
+    <ui:VisualElement name="Distance" style="flex-grow: initial; flex-direction: row; align-items: flex-start; justify-content: space-between; align-self: stretch; flex-shrink: 1;">
+        <ui:FloatField label="" value="10" binding-path="distance.x" is-delayed="true" name="MinDistance" style="flex-direction: row-reverse; min-width: 75px;"/>
+        <ui:FloatField label="" value="100" binding-path="distance.y" is-delayed="true" name="MaxDistance" style="min-width: 75px; flex-direction: row-reverse; -unity-text-align: upper-right;"/>
+    </ui:VisualElement>
+    <ui:EnumField label="Rolloff Mode" value="Center" type="UnityEngine.AudioRolloffMode, UnityEngine.AudioModule" binding-path="rolloffMode" name="RolloffMode"/>
+    <ui:RadioButtonGroup label="Spatial Type" choices="2D,3D" value="0" binding-path="spatialType" name="SpatialType"/>
+    <ui:Toggle label="Loop" binding-path="loop" name="Loop"/>
+    <ui:VisualElement name="Preview">
+        <ui:Label text="Preview" name="PreviewHeader" style="-unity-font-style: bold; margin-top: 10px; margin-bottom: 5px; margin-left: 3px; font-size: 13px;"/>
+        <ui:VisualElement name="PreviewControls" style="flex-direction: row;">
+            <ui:Button text="Play" focusable="false" name="Play" style="flex-grow: 1;"/>
+            <ui:Button text="Stop" enabled="false" name="Stop" style="flex-grow: 1;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

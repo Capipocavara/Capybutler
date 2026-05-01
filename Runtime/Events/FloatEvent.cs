@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Capibutler.Events
 {
-    [CreateAssetMenu(fileName = "FloatEvent", menuName = "Voodoo/Events/FloatEvent")]
+    [CreateAssetMenu(fileName = "FloatEvent", menuName = "Capipocavara/Events/FloatEvent")]
     public class FloatEvent : GenericEvent<float> { }
 
     [Serializable]
